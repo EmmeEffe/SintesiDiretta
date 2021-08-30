@@ -1,0 +1,21 @@
+%sintesi diretta del controllore tramite la carta WI
+e1 = input("Inserisci il valore dell'errore a regime di inseguimento di una rampa unitaria in ingresso al sistema: -> ");
+s = input("Inserisci il valore della massima sovraelongazione del sistema: -> ");
+B3 = input("Inserisci il valore della Banda del sistema: -> ");
+
+lim3 = inverse3(s);
+lim2 = inverse2(e1, B3);
+if(length(lim2)==1)
+    if(lim3>lim2)
+        error("Non è possibile trovare il controllore");
+    else
+        z = input("Inserisci un valore di z compreso tra "+ lim3 +" e "+lim2+": -> ");
+        while((z<lim3)||(z>lim2))
+            z = input("Inserisci un valore di z compreso tra "+ lim3 +" e "+lim2+": -> ");
+        end
+    end
+else %se ho 2 estremi dalla funzione 2
+    if(lim3>lim2(1))%se conta solo l'estremo dx di lim2
+        z = input("Inserisci un valore di z compreso tra "+ max(lim2(2),lim3) +" e 1: -> ");
+end
+disp("Il valore di Omega n richiesto è pari a "+findwn(z, B3));

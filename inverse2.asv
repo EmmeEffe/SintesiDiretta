@@ -1,0 +1,12 @@
+function [z] = inverse2(e1, B3)
+%INVERSE2 Trova il valore di z max dati l'errore a regime e la banda
+%passante
+z=0;
+threshold = 1/(e1*B3);
+while(f2(z)>=threshold)
+    z=z+0.05;
+end
+z = z-0.05;
+end
+
+
